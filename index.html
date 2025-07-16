@@ -4,46 +4,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FakeStore</title>
+    <title>FakeStore - Complete Shopping Solution</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #2B2F35;
+            color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
+        .navbar {
+            font-size: 20px;
+            background: linear-gradient(135deg, #343a40, #212529);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .product_tittle {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product_description {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #adb5bd;
+        }
+
+        .card {
+            background-color: #343a40;
+            border: 1px solid #495057;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-img-top {
+            background-color: #ffffff;
+            padding: 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 0.7rem;
+        }
+
+        .cart-container {
+            background-color: #343a40;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .cart-item {
+            border-bottom: 1px solid #495057;
+            padding: 15px 0;
+        }
+
+        .btn-checkout {
+            background: linear-gradient(135deg, #0d6efd, #6f42c1);
+            border: none;
+            padding: 12px 25px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .btn-checkout:hover {
+            background: linear-gradient(135deg, #0b5ed7, #5a32a3);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-light:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .invoice-container {
+            background: linear-gradient(135deg, #343a40, #2b3035);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .invoice-header {
+            background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+            padding: 20px;
+        }
+
+        .invoice-item {
+            border-bottom: 1px solid #495057;
+            padding: 15px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        .empty-cart {
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .view-container {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, #0d6efd, #6f42c1);
+            border-radius: 2px;
+        }
+
+        .cart-total {
+            background: #212529;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        
+
+        .footer {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid #495057;
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1050;
+            min-width: 250px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 20px;
+            }
+
+            .cart-icon {
+                margin-left: 15px;
+            }
+
+            .card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
-<style>
-    body{
-        background: fixed;
-        background-color: #2B2F35;
-    }
 
-    .navbar{
-        font-size: 20px;
-    }
-
-    .product_tittle{
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .product_description{
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-</style>
 <body>
     <div id="app" class="container">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark" style="padding: 20px;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#" style="font-size: 25px;"><i class="fa-brands fa-slack" style="margin-right: 10px;"></i></i>Samba</a>
+                <a class="navbar-brand" href="#" style="font-size: 25px;" @click="currentView = 'products'">
+                    <i class="fa-brands fa-slack" style="margin-right: 10px;"></i>Samba
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -53,45 +225,312 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link" :class="{ active: currentView === 'products' }" href="#"
+                                @click="currentView = 'products'">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" :class="{ active: currentView === 'cart' }" href="#"
+                                @click="currentView = 'cart'">Cart</a>
                         </li>
                     </ul>
 
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button class="btn btn-danger" type="submit">Search</button>
-                        <a href="#" style="color: white; font-size: 25px; margin-right: 20px; margin-left: 30px;"><i class="fa-solid fa-cart-shopping"></i></a>
-                        <a href="#" style="color: white; font-size: 25px; "><i class="fa-solid fa-user"></i></i></a>
-                    </form>
+                    <div class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            v-model="searchQuery" @input="filterProducts">
+                        <a href="#" class="cart-icon position-relative mx-4" style="color: white; font-size: 25px;"
+                            @click="currentView = 'cart'">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span v-if="cartTotalItems > 0"
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">
+                                {{ cartTotalItems }}
+                            </span>
+                        </a>
+                        <a href="#" style="color: white; font-size: 25px;">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
 
-        <!-- Product List -->
-        <div class="row">
-            <div class="col-md-3 mt-3" v-for="item in products" :key="item">
-                <div class="card" style="width: 18rem;">
-                    <img :src="item.image" class="card-img-top" alt=""
-                        style="width: 100%; height: 200px; object-fit:contain;">
-                    <div class="card-body">
-                        <span class="badge text-bg-secondary" style="position: absolute; top: 10px; right: 10px;">{{item.price}} $</span>
-                        <span class="badge text-bg-secondary">{{item.category}}</span>
-                        <h5 class="card-title product_tittle">{{item.title}}</h5>
-                        <p class="card-text product_description">{{item.description}}</p>
-                        <a href="#" class="btn btn-outline-warning" >Add to Cart</i></a>
-                        <a href="#" class="btn btn-outline-danger" style="position: absolute; right: 13px;">Buy Now</a>
+        <!-- Toast Notification -->
+        <div class="toast-notification">
+            <div v-if="showNotification" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-success text-white">
+                    <i class="fa-solid fa-cart-plus me-2"></i>
+                    <strong class="me-auto">Added to Cart</strong>
+                    <button type="button" class="btn-close btn-close-white" @click="showNotification = false"></button>
+                </div>
+                <div class="toast-body bg-dark text-white">
+                    {{ notificationMessage }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Products View -->
+        <div v-if="currentView === 'products'" class="view-container">
+            <h2 class="text-white mb-4 page-title">Our Products</h2>
+            <div class="row">
+                <div class="col-md-3 mt-3" v-for="item in filteredProducts" :key="item.id">
+                    <div class="card h-100">
+                        <img :src="item.image" class="card-img-top" alt="">
+                        <div class="card-body position-relative">
+                            <span class="badge text-bg-primary" style="position: absolute; top: 10px; right: 10px;">
+                                {{ item.price }} $
+                            </span>
+                            <span class="badge text-bg-secondary">{{ item.category }}</span>
+                            <h5 class="card-title product_tittle mt-2" style="color: white;">{{ item.title }}</h5>
+                            <p class="card-text product_description">{{ item.description }}</p>
+                            <div class="d-flex justify-content-between mt-4">
+                                <a href="#" class="btn btn-outline-warning" @click.prevent="addToCart(item)">
+                                    <i class="fa-solid fa-cart-plus me-2"></i>Add to Cart
+                                </a>
+                                <a href="#" class="btn btn-outline-danger" @click.prevent="buyNow(item)">
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Cart View -->
+        <div v-if="currentView === 'cart'" class="view-container">
+            <h2 class="text-white mb-4 page-title">Your Shopping Cart</h2>
+
+            <div v-if="cartTotalItems === 0" class="empty-cart">
+                <div class="text-center">
+                    <i class="fa-solid fa-cart-shopping mb-4" style="font-size: 5rem; color: #6c757d;"></i>
+                    <h3 class="text-muted">Your cart is empty</h3>
+                    <p class="text-muted">Start shopping to add items to your cart</p>
+                    <button class="btn btn-primary mt-3" @click="currentView = 'products'">
+                        <i class="fa-solid fa-arrow-left me-2"></i>Continue Shopping
+                    </button>
+                </div>
+            </div>
+
+            <div v-else class="cart-container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="cart-items">
+                            <div class="cart-item row align-items-center" v-for="(item, index) in cart" :key="index">
+                                <div class="col-md-2">
+                                    <img :src="item.product.image" alt="Product" class="img-fluid rounded"
+                                        style="max-height: 80px;">
+                                </div>
+                                <div class="col-md-5">
+                                    <h6 class="mb-0">{{ item.product.title }}</h6>
+                                    <small class="text-muted">{{ item.product.category }}</small>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-sm btn-outline-light quantity-btn me-2"
+                                            @click="updateQuantity(item, -1)">
+                                            <i class="fa-solid fa-minus"></i>
+                                        </button>
+                                        <span class="mx-2">{{ item.quantity }}</span>
+                                        <button class="btn btn-sm btn-outline-light quantity-btn ms-2"
+                                            @click="updateQuantity(item, 1)">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <strong>${{ (item.product.price * item.quantity).toFixed(2) }}</strong>
+                                    <div class="text-muted small">${{ item.product.price }} each</div>
+                                </div>
+                                <div class="col-md-1 text-end">
+                                    <button class="btn btn-sm btn-outline-danger" @click="removeFromCart(item)">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mt-4 mt-lg-0">
+                        <div class="cart-total">
+                            <h5 class="mb-4">Order Summary</h5>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal:</span>
+                                <span>${{ cartSubtotal.toFixed(2) }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Shipping:</span>
+                                <span>${{ shippingCost.toFixed(2) }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Tax ({{ (taxRate * 100).toFixed(0) }}%):</span>
+                                <span>${{ taxAmount.toFixed(2) }}</span>
+                            </div>
+                            <hr class="my-3">
+                            <div class="d-flex justify-content-between mb-4">
+                                <h5>Total:</h5>
+                                <h5>${{ cartTotal.toFixed(2) }}</h5>
+                            </div>
+                            <button class="btn btn-checkout w-100 py-3" @click="currentView = 'invoice'">
+                                Proceed to Checkout
+                            </button>
+                            <button class="btn btn-outline-light w-100 mt-3" @click="currentView = 'products'">
+                                Continue Shopping
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoice View -->
+        <div v-if="currentView === 'invoice'" class="view-container">
+            <h2 class="text-white mb-4 page-title">Order Confirmation</h2>
+
+            <div class="invoice-container">
+                <div class="invoice-header text-white text-center">
+                    <h3><i class="fa-solid fa-receipt me-2"></i>Your Order Invoice</h3>
+                    <p class="mb-0">Order #{{ Math.floor(Math.random() * 1000000) }}</p>
+                </div>
+
+                <div class="p-4">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Billing Information</h5>
+                            <p class="mb-1">John Doe</p>
+                            <p class="mb-1">123 Main Street</p>
+                            <p class="mb-1">New York, NY 10001</p>
+                            <p class="mb-0">john.doe@example.com</p>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <h5>Order Details</h5>
+                            <p class="mb-1"><strong>Order Date:</strong> {{ new Date().toLocaleDateString() }}</p>
+                            <p class="mb-1"><strong>Payment Method:</strong> Credit Card</p>
+                            <p class="mb-0"><strong>Status:</strong> <span class="badge bg-success">Paid</span></p>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-end">Price</th>
+                                    <th class="text-end">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item, index) in cart" :key="index">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img :src="item.product.image" alt="Product" class="me-3"
+                                                style="width: 50px; height: 50px; object-fit: contain;">
+                                            <div>
+                                                <div class="fw-bold">{{ item.product.title }}</div>
+                                                <div class="text-muted small">{{ item.product.category }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">{{ item.quantity }}</td>
+                                    <td class="text-end">${{ item.product.price.toFixed(2) }}</td>
+                                    <td class="text-end">${{ (item.product.price * item.quantity).toFixed(2) }}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td class="text-end">Subtotal:</td>
+                                    <td class="text-end">${{ cartSubtotal.toFixed(2) }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td class="text-end">Shipping:</td>
+                                    <td class="text-end">${{ shippingCost.toFixed(2) }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td class="text-end">Tax ({{ (taxRate * 100).toFixed(0) }}%):</td>
+                                    <td class="text-end">${{ taxAmount.toFixed(2) }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td class="text-end fw-bold">Total:</td>
+                                    <td class="text-end fw-bold">${{ cartTotal.toFixed(2) }}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button class="btn btn-outline-light" @click="currentView = 'cart'">
+                            <i class="fa-solid fa-arrow-left me-2"></i>Back to Cart
+                        </button>
+                        <button class="btn btn-primary" @click="completeOrder">
+                            <i class="fa-solid fa-check me-2"></i>Complete Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Complete View -->
+        <div v-if="currentView === 'complete'" class="view-container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="text-center p-5 rounded" style="background-color: #343a40;">
+                        <div class="mb-4">
+                            <i class="fa-solid fa-circle-check text-success" style="font-size: 5rem;"></i>
+                        </div>
+                        <h2 class="text-white mb-3">Order Complete!</h2>
+                        <p class="text-muted mb-4">Thank you for your purchase. Your order has been placed successfully.
+                        </p>
+                        <p class="mb-4">Order #{{ Math.floor(Math.random() * 1000000) }} will be shipped soon.</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <button class="btn btn-primary" @click="currentView = 'products'; cart = []">
+                                <i class="fa-solid fa-bag-shopping me-2"></i>Continue Shopping
+                            </button>
+                            <button class="btn btn-outline-light" @click="currentView = 'invoice'">
+                                <i class="fa-solid fa-receipt me-2"></i>View Invoice
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer text-center mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <h5><i class="fa-brands fa-slack me-2"></i>Samba</h5>
+                        <p class="text-muted">Your trusted online shopping destination</p>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <h5>Quick Links</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-decoration-none text-muted"
+                                    @click="currentView = 'products'">Products</a></li>
+                            <li><a href="#" class="text-decoration-none text-muted"
+                                    @click="currentView = 'cart'">Cart</a></li>
+                            <li><a href="#" class="text-decoration-none text-muted">About Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Contact</h5>
+                        <ul class="list-unstyled">
+                            <li class="text-muted">Email: info@samba.com</li>
+                            <li class="text-muted">Phone: (123) 456-7890</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <p class="text-muted mb-0">© 2023 Samba Store. All rights reserved.</p>
+            </div>
+        </footer>
     </div>
-</body>
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
     const { createApp } = Vue
     createApp({
         created() {
@@ -99,29 +538,123 @@
         },
         data() {
             return {
-                products:[],
-                cart_list:[]
+                products: [],
+                cart: [],
+                currentView: 'products',
+                searchQuery: '',
+                filteredProducts: [],
+                shippingCost: 5.99,
+                taxRate: 0.08
+            }
+        },
+        computed: {
+            cartTotalItems() {
+                return this.cart.reduce((total, item) => total + item.quantity, 0)
+            },
+            cartSubtotal() {
+                return this.cart.reduce((total, item) => total + (item.product.price * item.quantity), 0)
+            },
+            taxAmount() {
+                return this.cartSubtotal * this.taxRate
+            },
+            cartTotal() {
+                return this.cartSubtotal + this.shippingCost + this.taxAmount
             }
         },
         methods: {
             fetchData() {
-                let vm=this;
-                axios.get('https://fakestoreapi.com/products')
+                let vm = this;
+                axios.get('http://127.0.0.1:8000/api/product/list')
                     .then(function (response) {
-                        // handle success
-                        vm.products=response.data;
-                        console.log(products);
+                        vm.products = response.data;
+                        vm.filteredProducts = [...vm.products];
+                        console.log("Products loaded:", vm.products.length);
                     })
                     .catch(function (error) {
-                        // handle error
                         console.log(error);
                     });
             },
-            addToCart(item){
-                this.cart_list.push(item)
+            filterProducts() {
+                if (!this.searchQuery) {
+                    this.filteredProducts = [...this.products];
+                    return;
+                }
+                
+                const query = this.searchQuery.toLowerCase();
+                this.filteredProducts = this.products.filter(product => 
+                    product.title.toLowerCase().includes(query) || 
+                    product.description.toLowerCase().includes(query) ||
+                    product.category.toLowerCase().includes(query)
+                );
+            },
+            addToCart(item) {
+                const existingItem = this.cart.find(cartItem => cartItem.product.id === item.id);
+                
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    this.cart.push({
+                        product: item,
+                        quantity: 1
+                    });
+                }
+                
+                // Show a notification
+                this.showNotification(`${item.title} added to cart!`);
+            },
+            buyNow(item) {
+                this.addToCart(item);
+                this.currentView = 'cart';
+            },
+            updateQuantity(item, change) {
+                const cartItem = this.cart.find(cartItem => cartItem.product.id === item.product.id);
+                
+                if (cartItem) {
+                    cartItem.quantity += change;
+                    
+                    if (cartItem.quantity <= 0) {
+                        this.removeFromCart(item);
+                    }
+                }
+            },
+            removeFromCart(item) {
+                this.cart = this.cart.filter(cartItem => cartItem.product.id !== item.product.id);
+            },
+            completeOrder() {
+                this.currentView = 'complete';
+            },
+            showNotification(message) {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = 'position-fixed bottom-0 end-0 p-3';
+                notification.style.zIndex = '11';
+                
+                const toast = document.createElement('div');
+                toast.className = 'toast show';
+                toast.role = 'alert';
+                toast.ariaLive = 'assertive';
+                toast.ariaAtomic = 'true';
+                
+                toast.innerHTML = `
+                    <div class="toast-header bg-success text-white">
+                        <i class="fa-solid fa-cart-plus me-2"></i>
+                        <strong class="me-auto">Added to Cart</strong>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-dark text-white">
+                        ${message}
+                    </div>
+                `;
+                
+                notification.appendChild(toast);
+                document.body.appendChild(notification);
+                
+                // Auto-remove after 3 seconds
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
             }
         }
     }).mount('#app')
 </script>
-
 </html>
